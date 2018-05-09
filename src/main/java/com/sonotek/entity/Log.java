@@ -6,8 +6,8 @@
 package com.sonotek.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,7 +67,7 @@ public class Log implements Serializable {
     @ManyToOne(optional = false)
     private User idUser;
     @OneToMany(mappedBy = "idLog")
-    private List<User> userList;
+    private Collection<User> userCollection;
 
     public Log() {
     }
@@ -124,12 +124,12 @@ public class Log implements Serializable {
     }
 
     @XmlTransient
-    public List<User> getUserList() {
-        return userList;
+    public Collection<User> getUserCollection() {
+        return userCollection;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @Override
