@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+       
+        
+    </h:head>
+        <h:body>
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+</style>
+            <h:form >
+                <p:outputPanel>
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <div class="card">
+                            <img src="resources/lib/img_avatar.png" alt="Avatar" style="width:100%"/>
+                            <div class="container">
+                              <h4><b>Hoşgeldiniz #{loginController.userName}</b></h4> 
+                              <p>#{loginController.sessionUser.idRole.roleName}</p> 
+                              <p>#{loginController.sessionUser.mail}</p> 
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6"></div>
+                </div>
+              </p:outputPanel>
+             </h:form>       
+             </h:body>
+</html>

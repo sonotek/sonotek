@@ -57,7 +57,7 @@ public class LoginController implements Serializable{
 
             if(sessionUser!=null){
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userName", userName);
-                return "index.xhtml?faces-redirect=true";
+                return "welcome.xhtml?faces-redirect=true";
             }else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Username or Password is invalid"));
             }
