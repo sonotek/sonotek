@@ -41,22 +41,18 @@ public class UserController {
     @PostConstruct
     public void init(){
         setUsers(userFacade.findAll());
-        
+        userQuery = new String();
     }
     
     public void queryExample()
     {
-      Query query = em.createNamedQuery(this.userQuery);
-      query.getResultList();
-      this.userQueryList = new ArrayList<>();
-      this.userQueryList.add(this.userQuery);
+        Query query = em.createQuery(this.userQuery);
+        this.userQueryList = new ArrayList<>();
+        this.userQueryList.add(this.userQuery);
       
         System.out.println(this.userQuery);
         System.out.println(this.userQueryList);
-        
-      
-      
-        
+
       
     }
     public List<User> getUsers() {
