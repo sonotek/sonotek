@@ -14,37 +14,56 @@ and open the template in the editor.
         
     </h:head>
         <h:body>
-<style>
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.container {
-    padding: 2px 16px;
-}
-</style>
+            <link href="resources/css/welcome.css" rel="stylesheet" type="text/css"/>
             <h:form >
                 <p:outputPanel>
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
                         <div class="card">
-                            <img src="resources/lib/img_avatar.png" alt="Avatar" style="width:100%"/>
-                            <div class="container">
-                              <h4><b>Hoşgeldiniz #{loginController.userName}</b></h4> 
-                              <p>#{loginController.sessionUser.idRole.roleName}</p> 
-                              <p>#{loginController.sessionUser.mail}</p> 
+                            <img src="resources/lib/img_avatar.png" alt="Avatar" class="card-profile-photo"/>
+                            <div class="card-profile" >
+                              <h4><b>Hoşgeldiniz </b></h4> 
+                             <p>Kullanıcı Adı : #{loginController.userName}</p>
+                              <p:separator/>
+                              <p>Yetki : #{loginController.sessionUser.idRole.roleName}</p> 
+                              <p:separator/>
+                              <p>Mail : #{loginController.sessionUser.mail}</p> 
+                              <p:separator/>
                             </div>
                         </div>
                         
                         
                     </div>
-                    <div class="ui-g-12 ui-md-6 ui-lg-6"></div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <h:outputText value="SERVER" />
+                        <h:inputText class="" id="DBSERVER" value="#{dbSelectionController.ipConfig}"/>
+                        <h:outputText value="PORT" />
+                        <h:inputText class="" id="DBPORT" value="#{dbSelectionController.port}"/>
+                        <h:outputText value="DB KULLANICI ADI" />
+                        <h:inputText class="" id="DBUSERNAME" value="#{dbSelectionController.userName}"/>
+                        <h:outputText value="DBPASSWORD" />
+                        <h:inputText id="DBPASSWORD" value="#{dbSelectionController.password}"/>
+                        <h:commandButton action="#{dbSelectionController.readDataBase()}" value="Login"></h:commandButton>
+                    </div>
+                    
+                    <p:dataTable var="db" value="#{dbSelectionController.databaseList}">
+                        <p:column headerText="db">
+                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
+                        </p:column>
+                           <p:column headerText="db1">
+                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
+                        </p:column>
+                           <p:column headerText="db2">
+                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
+                        </p:column>
+                           <p:column headerText="db3">
+                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
+                        </p:column>
+                           <p:column headerText="db4">
+                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
+                        </p:column>
+                    
+                    </p:dataTable>
                 </div>
               </p:outputPanel>
              </h:form>       
