@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui = "http://java.sun.com/jsf/facelets">
     <h:head>
        
         
@@ -48,22 +49,11 @@ and open the template in the editor.
                     
                     <p:dataTable var="db" value="#{dbSelectionController.databaseList}">
                         <p:column headerText="db">
-                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
+                            <h:outputText value="#{db}" />
                         </p:column>
-                           <p:column headerText="db1">
-                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
-                        </p:column>
-                           <p:column headerText="db2">
-                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
-                        </p:column>
-                           <p:column headerText="db3">
-                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
-                        </p:column>
-                           <p:column headerText="db4">
-                            <h:outputText value="#{dbSelectionController.firstDatabase}" />
-                        </p:column>
-                    
+
                     </p:dataTable>
+                   
                 </div>
               </p:outputPanel>
              </h:form>       
