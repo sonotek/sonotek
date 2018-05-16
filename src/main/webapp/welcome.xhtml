@@ -35,7 +35,7 @@ and open the template in the editor.
                         
                         
                     </div>
-                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                    <div class="ui-g-12 ui-md-3 ui-lg-3">
                         <h:outputText value="SERVER" />
                         <h:inputText class="" id="DBSERVER" value="#{dbSelectionController.ipConfig}"/>
                         <h:outputText value="PORT" />
@@ -46,14 +46,39 @@ and open the template in the editor.
                         <h:inputText id="DBPASSWORD" value="#{dbSelectionController.password}"/>
                         <h:commandButton action="#{dbSelectionController.readDataBase()}" value="Login"></h:commandButton>
                     </div>
-                    
-                    <p:dataTable var="db" value="#{dbSelectionController.databaseList}">
-                        <p:column headerText="db">
-                            <h:outputText value="#{db}" />
-                        </p:column>
+                     <div class="ui-g-12 ui-md-3 ui-lg-3">
+                        <p:dataTable id="dbSelectionDatabase"
+                                     var="db" 
+                                     value="#{dbSelectionController.databaseList}"
+                                     selectionMode="single"
+                                     selection="#{dbSelectionController.selectionDatabase}"
+                                     rowKey="#{db}">
 
-                    </p:dataTable>
-                   
+                            <p:ajax event="rowSelect" listener="#{dbSelectionController.onRowSelect}" update="dbSelectionDatabase"  />
+                            <p:ajax event="rowUnselect" listener="#{dbSelectionController.onRowUnselect}" update="dbSelectionDatabase" />
+                            <p:column headerText="db">
+                                <h:outputText value="#{db}" />
+                            </p:column>
+
+                        </p:dataTable>
+                          
+                            <h:commandButton action="#{dbSelectionController.readDatabaseTable()}"  
+                                             value="Database Seç" 
+                                            />
+                            <h:commandButton action="#{dbSelectionController.databaseSelectionTable()}" 
+                                             value="Seçilen Database Tabloları göster"
+                                             />
+                   </div>
+                    
+                        <p:dataTable id="dbSelectionTable"
+                                     var="dbInTable" 
+                                     value="#{dbSelectionController.tableList}"       
+                                    >
+
+                            <p:column headerText="db">
+                                <h:outputText value="#{dbInTable}" />
+                            </p:column>
+                        </p:dataTable>
                 </div>
               </p:outputPanel>
              </h:form>       

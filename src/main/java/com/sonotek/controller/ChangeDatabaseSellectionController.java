@@ -24,13 +24,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import javax.faces.bean.SessionScoped;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 /**
  *
  * @author Oguzhan
  */
 
 @ManagedBean(name = "dbSelectionController")
-@RequestScoped
+@SessionScoped
 public class ChangeDatabaseSellectionController {
     
    
@@ -45,11 +48,20 @@ public class ChangeDatabaseSellectionController {
     private String port;
     private List<String> databaseList;
     private String firstDatabase;
+    private String selectionDatabase;
+    private String selectionTable;
+    private List<String> tableList;
     
     @PostConstruct
     public void init(){
-       
+         this.databaseList = new ArrayList<String>();
+         this.firstDatabase = new String();
+         this.tableList = new ArrayList<String>();
+         
+         
     }
+    
+ 
     
    public void readDataBase() throws Exception {
         try {
@@ -57,12 +69,9 @@ public class ChangeDatabaseSellectionController {
             connect = DriverManager.getConnection("jdbc:mysql://"+ ipConfig+":"+port+"/?user=" +userName + "&password=" + password );
             statement = connect.createStatement();
             resultSet = statement.executeQuery("show databases ;");
-            databaseList = new ArrayList<>();
-            firstDatabase = new String();
              while(resultSet.next()){              
-                firstDatabase= resultSet.getString("Database");
-                databaseList.add(firstDatabase);
-                System.out.println(databaseList);
+                this.firstDatabase= resultSet.getString("Database");
+                this.databaseList.add(firstDatabase);
             }
              
             System.out.println(resultSet);
@@ -70,6 +79,61 @@ public class ChangeDatabaseSellectionController {
             throw e;
         } 
 
+    }
+   
+   
+   
+   
+   
+   
+   
+   public void connectionDatabase() throws Exception{
+       try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://"+ ipConfig+":"+port+"/?user=" +userName + "&password=" + password );
+            statement = connect.createStatement();
+          
+            
+          
+        } catch (Exception e) {
+            throw e;
+        } 
+   }
+   
+   public void readDatabaseTable() throws Exception{
+       connectionDatabase();
+       resultSet = statement.executeQuery("use "+selectionDatabase+" ;");
+       System.out.println(selectionDatabase+"qqqqqqqqqq");
+       System.out.println(selectionDatabase+"sssssssssss");
+      
+   }
+   public void databaseSelectionTable() throws Exception{
+          resultSet = statement.executeQuery("Show tables ;"); 
+          
+          while(resultSet.next()){
+         this.selectionTable= resultSet.getString("Tables_in_"+selectionDatabase);
+          System.out.println(selectionDatabase+"111111");
+          this.tableList.add(selectionTable);
+          System.out.println(tableList+"Listeee");
+          }
+        
+          
+   }
+   
+   
+   
+   
+   
+   
+   
+    public void onRowSelect(SelectEvent event) {
+        this.selectionDatabase = new String();
+        this.selectionDatabase = firstDatabase;
+        this.selectionDatabase= (String) event.getObject();
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+         this.selectionDatabase= (String) event.getObject();
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -204,6 +268,32 @@ public class ChangeDatabaseSellectionController {
     public void setFirstDatabase(String firstDatabase) {
         this.firstDatabase = firstDatabase;
     }
+
+    public String getSelectionDatabase() {
+        return selectionDatabase;
+    }
+
+    public void setSelectionDatabase(String selectionDatabase) {
+        this.selectionDatabase = selectionDatabase;
+    }
+
+    public String getSelectionTable() {
+        return selectionTable;
+    }
+
+    public void setSelectionTable(String selectionTable) {
+        this.selectionTable = selectionTable;
+    }
+
+    public List<String> getTableList() {
+        return tableList;
+    }
+
+    public void setTableList(List<String> tableList) {
+        this.tableList = tableList;
+    }
+    
+    
     
     
     
